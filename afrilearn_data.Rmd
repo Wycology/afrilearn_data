@@ -1,0 +1,240 @@
+---
+title: "<center>**Using `afrilearndata` to learn Spatial Analysis in R**</center>"
+author: "<center>Wyclife Agumba Oluoch (wyclifeoluoch@gmail.com) </center>"
+date: "<center>`r Sys.time()`</center>"
+bibliography: 
+  - bib/packages.bib
+nocite: '@*'
+output: 
+  html_document:
+    toc: true
+    toc_depth: 2
+    toc_float: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r libs, echo=FALSE, warning=FALSE, message=FALSE, include=FALSE}
+packages <- c("base",
+              'knitr',
+              'rmarkdown',
+              'tidyverse',
+              'afrilearndata',
+              'mapsf',
+              'terra',
+              'raster')
+installed_packages <- packages %in% rownames(installed.packages())
+if(any(installed_packages == FALSE)){
+  install.packages(packages[!installed_packages])
+}
+lapply(packages, library, character.only = TRUE) |> invisible()
+```
+
+```{r write_bib, echo=FALSE, warning=FALSE, message=FALSE, include=FALSE}
+knitr::write_bib(c(
+  .packages(), packages
+), 'bib/packages.bib')
+```
+
+# Introduction
+
+`afrilearndata` package has good data that can be used to learn more about Spatial Analysis in `R` especially within the African context. Having vector (with attribute data) and raster (with pixel values), the possibilities of analytic approaches are unlimited. Here, I will barely glimpse tip of the iceberg.
+
+## Simple mapping of the countries
+
+```{r countries}
+mf_init(africountries, expandBB = rep(0, 4), theme = 'iceberg')
+mf_shadow(africountries, col = 'magenta', cex = 2, add = TRUE) # just for aesthetic
+mf_layout(title = 'African countries map with shadow',
+          credits = paste0('Sources: Andy South, 2021\nAuthor: Wyclife Agumba Oluoch\n',
+          'Package: mapsf ',
+          packageVersion('mapsf'), '\nPackage: afrilearndata ', 
+          packageVersion('afrilearndata')))
+mf_map(africountries, add = TRUE)
+mf_label(africountries, var = "name", col = "purple", cex = 0.9, font = 250, bg = "white", r = 0.4, overlap = FALSE, lines = TRUE)
+```
+
+## Mapping of population field as proprotional circles
+
+```{r pop_prop}
+mf_init(africountries, expandBB = rep(0, 4), theme = 'dark')
+mf_layout(title = 'African countries population estimate',
+          credits = paste0('Sources: IGN, 2018\nAuthor: Wyclife Agumba Oluoch\n',
+          'Package: mapsf ',
+          packageVersion('mapsf'), '\nPackage: afrilearndata ',
+          packageVersion('afrilearndata')))
+mf_map(africountries, add = TRUE)
+mf_map(x = africountries, var = 'pop_est', type = 'prop', inches = 0.25, 
+       col = 'purple', leg_pos = 'topright', leg_title = 'Total population estimate'
+)
+```
+
+## Mapping population in choropleth protocol
+
+```{r pop_est_choro}
+mf_init(africountries, expandBB = rep(0, 4), theme = 'dark')
+mf_layout(title = 'African countries population estimate choropleth',
+          credits = paste0('Sources: Andy South, 2021\nAuthor: Wyclife Agumba Oluoch\n', 'Package: mapsf ',
+                           packageVersion('mapsf'), '\nPackage: afrilearndata ',
+                           packageVersion('afrilearndata')))
+mf_map(x = africountries, var = "gdp_md_est", type = "choro", breaks = "geom", 
+       nbreaks = 5, pal = "Purples", border = "white", lwd = 0.5, leg_pos = "left",
+       leg_title = "Numeric estimated gdp", add = TRUE)
+mf_inset_on(x = 'worldmap', pos = 'topright')
+mf_worldmap(africountries, col = "red")
+mf_inset_off()
+```
+
+# Extracting population raster data for each country
+
+```{r extract}
+afripop2020_extract <- africountries %>% 
+  mutate(pop_2020 = raster::extract(afripop2020, africountries, fun = mean, na.rm = TRUE))
+```
+
+So cool that we can extract mean values and mutate in the countries data as a new column to be used in subsequent mapping.
+
+```{r map_extracted}
+mf_init(afripop2020_extract, expandBB = rep(0, 4), theme = 'candy')
+mf_layout(title = 'African countries population density 2020',
+          credits = paste0('Sources: Andy South, 2021\nAuthor: Wyclife Agumba Oluoch\n', 'Package: mapsf ',
+                           packageVersion('mapsf'), '\nPackage: afrilearndata ',
+                           packageVersion('afrilearndata')))
+mf_map(x = afripop2020_extract, var = "pop_2020", type = "choro", breaks = "geom", nbreaks = 5,
+  pal = "YlGnBu", border = "green", lwd = 0.5, leg_pos = "left", 
+  leg_title = "African Pop. Density\n(people per km2)", add = TRUE)
+mf_inset_on(x = 'worldmap', pos = 'topright')
+mf_worldmap(afripop2020_extract, col = "red")
+mf_inset_off()
+```
+
+# Selective mapping
+
+Here I map only countries whose pop_2020 values are above 100.
+
+```{r pop_den_above_100}
+afri_pop_2020_100 <- afripop2020_extract %>% filter(pop_2020 > 100)
+mf_init(afri_pop_2020_100, expandBB = rep(0, 4), theme = 'dark')
+mf_layout(title = 'African countries with over 100 people per km2 in 2020',
+          credits = paste0('Sources: Andy South, 2021\nAuthor: Wyclife Agumba Oluoch\n', 'Package: mapsf ',
+                           packageVersion('mapsf'), '\nPackage: afrilearndata ',
+                           packageVersion('afrilearndata')))
+mf_map(x = afri_pop_2020_100, var = "pop_2020", type = "choro", breaks = "geom", nbreaks = 5,
+  pal = "YlGnBu", border = "green", lwd = 0.5, leg_pos = "left", 
+  leg_title = "African Pop. Density\n(people per km2)", add = TRUE)
+mf_label(x = afri_pop_2020_100, var = "name", col = "purple", cex = 0.9, font = 250, bg = "white", r = 0.4, overlap = FALSE, lines = FALSE)
+mf_inset_on(x = 'worldmap', pos = 'topright')
+mf_worldmap(afri_pop_2020_100, col = "red")
+mf_inset_off()
+```
+
+Here I map only countries whose population density values by 2020 fall below 20 people per square kilometre.
+
+```{r pop_den_below_20}
+afri_pop_2020_below_20 <- afripop2020_extract %>% filter(pop_2020 < 20)
+mf_init(afri_pop_2020_below_20, expandBB = rep(0, 4), theme = 'dark')
+mf_layout(title = 'African countries with below 20 people per km2 in 2020',
+          credits = paste0('Sources: Andy South, 2021\nAuthor: Wyclife Agumba Oluoch\n', 'Package: mapsf ',
+                           packageVersion('mapsf'), '\nPackage: afrilearndata ',
+                           packageVersion('afrilearndata')))
+mf_map(x = afri_pop_2020_below_20, var = "pop_2020", type = "choro", breaks = "geom", nbreaks = 5,
+  pal = "YlOrRd", border = "green", lwd = 0.5, leg_pos = "left", 
+  leg_title = "African Pop. Density\n(people per km2)", add = TRUE)
+mf_label(x = afri_pop_2020_below_20, var = "name", col = "purple", cex = 0.9, font = 250, bg = "white", r = 0.4, overlap = FALSE, lines = FALSE)
+mf_inset_on(x = 'worldmap', pos = 'topright')
+mf_worldmap(afri_pop_2020_below_20, col = "red")
+mf_inset_off()
+```
+
+Here is map of the country with maximum population density by 2020
+
+```{r max_pop_202}
+afri_pop_2020_max <- afripop2020_extract %>% filter(pop_2020 == max(pop_2020, na.rm = TRUE))
+mf_init(afri_pop_2020_max, expandBB = rep(0, 4), theme = 'dark')
+mf_layout(title = 'African country with maximum people per km2 in 2020',
+          credits = paste0('Sources: Andy South, 2021\nAuthor: Wyclife Agumba Oluoch\n', 'Package: mapsf ',
+                           packageVersion('mapsf'), '\nPackage: afrilearndata ',
+                           packageVersion('afrilearndata')))
+mf_map(x = afri_pop_2020_max, var = "pop_2020", type = "choro", breaks = "geom", nbreaks = 1,
+  pal = "YlGnBu", border = "green", lwd = 0.5, leg_pos = "left", 
+  leg_title = "African Pop. Density\n(people per km2)", add = TRUE)
+mf_label(x = afri_pop_2020_max, var = "name", col = "white", cex = 2, font = 250, bg = "white", r = 0.4, overlap = FALSE, lines = FALSE)
+mf_inset_on(x = 'worldmap', pos = 'topright')
+mf_worldmap(afri_pop_2020_max, col = "red")
+mf_inset_off()
+```
+
+Here is map of the country with least/minimum population density by 2020
+
+```{r min_pop_2020}
+afri_pop_2020_min <- afripop2020_extract %>% filter(pop_2020 == min(pop_2020, na.rm = TRUE))
+mf_init(afri_pop_2020_min, expandBB = rep(0, 4), theme = 'dark')
+mf_layout(title = 'African countries with minimum people per km2 in 2020',
+          credits = paste0('Sources: Andy South, 2021\nAuthor: Wyclife Agumba Oluoch\n', 'Package: mapsf ',
+                           packageVersion('mapsf'), '\nPackage: afrilearndata ',
+                           packageVersion('afrilearndata')))
+mf_map(x = afri_pop_2020_min, var = "pop_2020", type = "choro", breaks = "geom", nbreaks = 1,
+  col = "cyan", border = "green", lwd = 0.5, leg_pos = "left", 
+  leg_title = "African Pop. Density\n(people per km2)", add = TRUE)
+mf_label(x = afri_pop_2020_min, var = "name", col = "white", cex = 2, font = 250, bg = "white", r = 0.4, overlap = FALSE, lines = FALSE)
+mf_inset_on(x = 'worldmap', pos = 'topright')
+mf_worldmap(afri_pop_2020_min, col = "red")
+mf_inset_off()
+```
+
+
+```{r}
+land_cover <- rast(system.file("extdata","afrilandcover.grd", package="afrilearndata", mustWork=TRUE))
+
+```
+
+```{r raster}
+mf_init(land_cover, expandBB = rep(0, 4), theme = 'dark')
+mf_raster(land_cover, add = TRUE, bgalpha = 0.1)
+
+```
+
+The raster for the whole continent can be cropped and masked for a specific country extent. Here I do one for Kenya.
+
+```{r kenya_land_cover}
+kenya_land_cover <- crop(land_cover, africountries[africountries$name=='Kenya',])
+kenya_mask <- raster::mask(kenya_land_cover, vect(africountries[africountries$name == 'Kenya',]))
+kenya_sf <- africountries[africountries$name == 'Kenya',]
+mf_init(kenya_mask, expandBB = rep(0, 4), theme = 'dark')
+mf_raster(kenya_mask, add = TRUE, bgalpha = 0.1)
+mf_layout(title = 'Kenyan Land Cover',
+          credits = paste0('Sources: Andy South, 2021\nAuthor: Wyclife Agumba Oluoch\n', 'Package: mapsf ',
+                           packageVersion('mapsf'), '\nPackage: afrilearndata ',
+                           packageVersion('afrilearndata')))
+mf_map(x = kenya_sf, add = TRUE, col = 'transparent', lwd = 15, border = 'purple')
+mf_label(x = kenya_sf, var = "name", col = "blue", cex = 2, font = 250, bg = "white", r = 0.4, overlap = FALSE, lines = FALSE)
+mf_inset_on(x = 'worldmap', pos = 'topright')
+mf_worldmap(kenya_sf, col = "red")
+mf_inset_off()
+```
+
+> As I said earlier, this is a mere glimpse of iceberg tip. The scale bars in the maps could be misleading as they are in degrees and not kms. In other words, I should have projected the data as follows:
+
+```{r reprojected}
+kenya_mask_reproj <- terra::project(kenya_mask, "EPSG:21096")
+kenya_sf_reproj <- st_transform(kenya_sf, "EPSG:21096")
+mf_init(kenya_mask_reproj, expandBB = rep(0, 4), theme = 'dark')
+mf_raster(kenya_mask_reproj, add = TRUE, bgalpha = 0.1)
+mf_layout(title = 'Kenyan Land Cover',
+          credits = paste0('Sources: Andy South, 2021\nAuthor: Wyclife Agumba Oluoch\n', 'Package: mapsf ',
+                           packageVersion('mapsf'), '\nPackage: afrilearndata ',
+                           packageVersion('afrilearndata')))
+mf_map(x = kenya_sf_reproj, add = TRUE, col = 'transparent', lwd = 15, border = 'purple')
+mf_label(x = kenya_sf_reproj, var = "name", col = "blue", cex = 2, font = 250, bg = "white", r = 0.4, overlap = FALSE, lines = FALSE)
+mf_inset_on(x = 'worldmap', pos = 'topright')
+mf_worldmap(kenya_sf_reproj, col = "red")
+mf_inset_off()
+```
+
+# In this case, the scale of 200km is now correct.
+
+
+# References
