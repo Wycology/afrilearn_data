@@ -16,7 +16,6 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-
 ```{r libs, echo=FALSE, warning=FALSE, message=FALSE, include=FALSE}
 packages <- c("base",
               'knitr',
@@ -41,7 +40,7 @@ knitr::write_bib(c(
 
 # Introduction
 
-`afrilearndata` package has good data that can be used to learn more about Spatial Analysis in `R` especially within the African context. Having vector (with attribute data) and raster (with pixel values), the possibilities of analytic approaches are unlimited. Here, I will barely glimpse tip of the iceberg.
+`afrilearndata` package has goo data that can be used to learn more about Spatial Analysis in `R` especially within the African context. Having vector (with attribute data) and raster (with pixel values), the possibilities of analytic approaches are unlimited. Here, I will barely glimpse tip of the iceberg.
 
 You can find the rmd file in my [GitHub](https://github.com/Wycology/afrilearn_data/blob/main/afrilearn_data.Rmd) account and more about the package [here](https://github.com/afrimapr/afrilearndata).
 
@@ -187,7 +186,6 @@ mf_worldmap(afri_pop_2020_min, col = "red")
 mf_inset_off()
 ```
 
-
 ```{r}
 land_cover <- rast(system.file("extdata","afrilandcover.grd", package="afrilearndata", mustWork=TRUE))
 
@@ -237,6 +235,5 @@ mf_inset_off()
 ```
 
 # In this case, the scale of 200km is now correct.
-
 
 # References
