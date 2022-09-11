@@ -201,7 +201,7 @@ land_cover <- rast(system.file("extdata","afrilandcover.grd", package="afrilearn
 The raster for the whole continent can be cropped and masked for a specific country extent. Here I do one for Kenya.
 
 ```{r kenya_land_cover}
-kenya_land_cover <- crop(land_cover, africountries[africountries$name =='Kenya',])
+kenya_land_cover <- crop(land_cover, africountries[africountries$name == 'Kenya',])
 kenya_mask <- raster::mask(kenya_land_cover, vect(africountries[africountries$name == 'Kenya',]))
 kenya_sf <- africountries[africountries$name == 'Kenya',]
 mf_init(kenya_mask, expandBB = rep(0, 4), theme = 'dark')
