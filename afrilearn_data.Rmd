@@ -187,15 +187,16 @@ mf_inset_off()
 ```
 
 ```{r}
-land_cover <- rast(system.file("extdata","afrilandcover.grd", package="afrilearndata", mustWork=TRUE))
+land_cover <- rast(system.file("extdata","afrilandcover.grd", package="afrilearndata", mustWork = TRUE))
 
 ```
+
 
 ```{r raster}
-mf_init(land_cover, expandBB = rep(0, 4), theme = 'dark')
-mf_raster(land_cover, add = TRUE, bgalpha = 0.1)
-
+# mf_init(land_cover, expandBB = rep(0, 4), theme = 'dark')
+# mf_raster(land_cover, add = TRUE, bgalpha = 0.1)
 ```
+
 
 The raster for the whole continent can be cropped and masked for a specific country extent. Here I do one for Kenya.
 
