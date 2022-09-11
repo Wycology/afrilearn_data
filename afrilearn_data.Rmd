@@ -217,7 +217,7 @@ mf_worldmap(kenya_sf, col = "red")
 mf_inset_off()
 ```
 
-> As I said earlier, this is a mere glimpse of ticeberg tip. The scale bars in the maps could be misleading as they are in degrees and not kms. In other words, I should have projected the data as follows:
+> As I said earlier, this is a mere glimpse of thiceberg tip. The scale bars in the maps could be misleading as they are in degrees and not kms. In other words, I should have projected the data as follows:
 
 ```{r reprojected}
 kenya_mask_reproj <- terra::project(kenya_mask, "EPSG:21096")
