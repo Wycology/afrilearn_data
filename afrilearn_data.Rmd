@@ -235,6 +235,6 @@ mf_worldmap(kenya_sf_reproj, col = "red")
 mf_inset_off()
 ```
 
-# In this case, the scale of 200km is correc
+# In this case, the scale of 200km is corre
 
 # References
