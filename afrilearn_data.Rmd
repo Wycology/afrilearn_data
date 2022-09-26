@@ -132,7 +132,7 @@ mf_worldmap(afri_pop_2020_100, col = "red")
 mf_inset_off()
 ```
 
-Here I map only countries whose population density values by 2020 fall below 20 people per square kilome.
+Here I map only countries whose population density values by 2020 fall below 20 people per square kilom.
 
 ```{r pop_den_below_20}
 afri_pop_2020_below_20 <- afripop2020_extract %>% filter(pop_2020 < 20)
