@@ -150,7 +150,7 @@ mf_worldmap(afri_pop_2020_below_20, col = "red")
 mf_inset_off()
 ```
 
-Here is map of the country with maximum population density by 2020
+Here is map of the country with maximum population density by 2020.
 
 ```{r max_pop_202}
 afri_pop_2020_max <- afripop2020_extract %>% filter(pop_2020 == max(pop_2020, na.rm = TRUE))
