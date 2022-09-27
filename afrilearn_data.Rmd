@@ -58,7 +58,7 @@ mf_map(africountries, add = TRUE)
 mf_label(africountries, var = "name", col = "purple", cex = 0.9, font = 250, bg = "white", r = 0.4, overlap = FALSE, lines = TRUE)
 ```
 
-## Mapping of population field as proprotional circles
+## Mapping of opulation field as proprotional circles
 
 ```{r pop_prop}
 mf_init(africountries, expandBB = rep(0, 4), theme = 'dark')
