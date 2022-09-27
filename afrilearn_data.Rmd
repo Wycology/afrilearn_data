@@ -73,7 +73,7 @@ mf_map(x = africountries, var = 'pop_est', type = 'prop', inches = 0.25,
 )
 ```
 
-## Mapping population in choropleth protocol
+## Mappinopulation in choropleth protocol
 
 ```{r pop_est_choro}
 mf_init(africountries, expandBB = rep(0, 4), theme = 'dark')
