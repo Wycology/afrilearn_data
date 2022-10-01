@@ -1,5 +1,5 @@
 ---
-title: "<center>**Using `afrilearndata` in learning Spatial Analysis i R**</center>"
+title: "<center>**Using `afrilearndata` in learning Spatial Analysis wit R**</center>"
 author: "<center>Wyclife Agumba Oluoch (wyclifeoluoch@gmail.com) </center>"
 date: "<center>`r Sys.time()`</center>"
 bibliography: 
