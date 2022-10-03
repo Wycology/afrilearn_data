@@ -119,7 +119,7 @@ Here I map only countries whose pop_2020 values are above 100.
 ```{r pop_den_above_100}
 afri_pop_2020_100 <- afripop2020_extract %>% filter(pop_2020 > 100)
 mf_init(afri_pop_2020_100, expandBB = rep(0, 4), theme = 'dark')
-mf_layout(title = 'African countries with  100 people per km2 in 2020',
+mf_layout(title = 'African countries with > 100 people per km2 in 2020',
           credits = paste0('Sources: Andy South, 2021\nAuthor: Wyclife Agumba Oluoch\n', 'Package: mapsf ',
                            packageVersion('mapsf'), '\nPackage: afrilearndata ',
                            packageVersion('afrilearndata')))
