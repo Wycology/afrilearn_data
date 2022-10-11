@@ -132,7 +132,7 @@ mf_worldmap(afri_pop_2020_100, col = "red")
 mf_inset_off()
 ```
 
-Here I map countries whose population density values by 2020 fll below 20 people per square km.
+Here I map countries whose population density values by 2020 fell below 20 people per square km.
 
 ```{r pop_den_below_20}
 afri_pop_2020_below_20 <- afripop2020_extract %>% filter(pop_2020 < 20)
@@ -191,6 +191,12 @@ land_cover <- rast(system.file("extdata","afrilandcover.grd", package="afrilearn
 
 ```
 
+  
+```{python }
+import pandas as pd
+sample_data = pd.read_csv("D:/comp.csv")
+sample_data.head()
+```
 
 ```{r raster}
 # mf_init(land_cover, expandBB = rep(0, 4), theme = 'dark')
@@ -201,38 +207,38 @@ land_cover <- rast(system.file("extdata","afrilandcover.grd", package="afrilearn
 The raster for the whole continent can be cropped and masked for a specific country extent. Here I do one for Kenya.
 
 ```{r kenya_land_cover}
-kenya_land_cover <- crop(land_cover, africountries[africountries$name == 'Kenya',])
-kenya_mask <- raster::mask(kenya_land_cover, vect(africountries[africountries$name == 'Kenya',]))
-kenya_sf <- africountries[africountries$name == 'Kenya',]
-mf_init(kenya_mask, expandBB = rep(0, 4), theme = 'dark')
-mf_raster(kenya_mask, add = TRUE, bgalpha = 0.1)
-mf_layout(title = 'Kenyan Land Cover',
-          credits = paste0('Sources: Andy South, 2021\nAuthor: Wyclife Agumba Oluoch\n', 'Package: mapsf ',
-                           packageVersion('mapsf'), '\nPackage: afrilearndata ',
-                           packageVersion('afrilearndata')))
-mf_map(x = kenya_sf, add = TRUE, col = 'transparent', lwd = 15, border = 'purple')
-mf_label(x = kenya_sf, var = "name", col = "blue", cex = 2, font = 250, bg = "white", r = 0.4, overlap = FALSE, lines = FALSE)
-mf_inset_on(x = 'worldmap', pos = 'topright')
-mf_worldmap(kenya_sf, col = "red")
-mf_inset_off()
+#kenya_land_cover <- crop(land_cover, africountries[africountries$name == 'Kenya',])
+# kenya_mask <- raster::mask(kenya_land_cover, vect(africountries[africountries$name == 'Kenya',]))
+# kenya_sf <- africountries[africountries$name == 'Kenya',]
+# mf_init(kenya_mask, expandBB = rep(0, 4), theme = 'dark')
+# mf_raster(kenya_mask, add = TRUE, bgalpha = 0.1)
+# mf_layout(title = 'Kenyan Land Cover',
+#           credits = paste0('Sources: Andy South, 2021\nAuthor: Wyclife Agumba Oluoch\n', 'Package: mapsf ',
+#                            packageVersion('mapsf'), '\nPackage: afrilearndata ',
+#                            packageVersion('afrilearndata')))
+# mf_map(x = kenya_sf, add = TRUE, col = 'transparent', lwd = 15, border = 'purple')
+# mf_label(x = kenya_sf, var = "name", col = "blue", cex = 2, font = 250, bg = "white", r = 0.4, overlap = FALSE, lines = FALSE)
+# mf_inset_on(x = 'worldmap', pos = 'topright')
+# mf_worldmap(kenya_sf, col = "red")
+# mf_inset_off()
 ```
 
 > As I said earlier, this is a mere glimpse of the iceberg tip. The scale bars in the maps could be misleading as they are in degrees and not kms. In other words, I should have projected the data as follows:
 
 ```{r reprojected}
-kenya_mask_reproj <- terra::project(kenya_mask, "EPSG:21096")
-kenya_sf_reproj <- st_transform(kenya_sf, "EPSG:21096")
-mf_init(kenya_mask_reproj, expandBB = rep(0, 4), theme = 'dark')
-mf_raster(kenya_mask_reproj, add = TRUE, bgalpha = 0.1)
-mf_layout(title = 'Kenyan Land Cover',
-          credits = paste0('Sources: Andy South, 2021\nAuthor: Wyclife Agumba Oluoch\n', 'Package: mapsf ',
-                           packageVersion('mapsf'), '\nPackage: afrilearndata ',
-                           packageVersion('afrilearndata')))
-mf_map(x = kenya_sf_reproj, add = TRUE, col = 'transparent', lwd = 15, border = 'purple')
-mf_label(x = kenya_sf_reproj, var = "name", col = "blue", cex = 2, font = 250, bg = "white", r = 0.4, overlap = FALSE, lines = FALSE)
-mf_inset_on(x = 'worldmap', pos = 'topright')
-mf_worldmap(kenya_sf_reproj, col = "red")
-mf_inset_off()
+#kenya_mask_reproj <- terra::project(kenya_mask, "EPSG:21096")
+# kenya_sf_reproj <- st_transform(kenya_sf, "EPSG:21096")
+# mf_init(kenya_mask_reproj, expandBB = rep(0, 4), theme = 'dark')
+# mf_raster(kenya_mask_reproj, add = TRUE, bgalpha = 0.1)
+# mf_layout(title = 'Kenyan Land Cover',
+#           credits = paste0('Sources: Andy South, 2021\nAuthor: Wyclife Agumba Oluoch\n', 'Package: mapsf ',
+#                            packageVersion('mapsf'), '\nPackage: afrilearndata ',
+#                            packageVersion('afrilearndata')))
+# mf_map(x = kenya_sf_reproj, add = TRUE, col = 'transparent', lwd = 15, border = 'purple')
+# mf_label(x = kenya_sf_reproj, var = "name", col = "blue", cex = 2, font = 250, bg = "white", r = 0.4, overlap = FALSE, lines = FALSE)
+# mf_inset_on(x = 'worldmap', pos = 'topright')
+# mf_worldmap(kenya_sf_reproj, col = "red")
+# mf_inset_off()
 ```
 
 # In this case, the scale of 200km is co
