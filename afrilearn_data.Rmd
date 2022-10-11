@@ -211,7 +211,7 @@ kenya_land_cover <- raster::crop(land_cover, africountries[africountries$name ==
 kenya_mask <- raster::mask(kenya_land_cover, vect(africountries[africountries$name == 'Kenya',]))
 kenya_sf <- africountries[africountries$name == 'Kenya',]
 mf_init(kenya_mask, expandBB = rep(0, 4), theme = 'dark')
-mf_raster(kenya_mask, add = TRUE, bgalpha = 0.1)
+# mf_raster(kenya_mask, add = TRUE, bgalpha = 0.1)
 # mf_layout(title = 'Kenyan Land Cover',
 #           credits = paste0('Sources: Andy South, 2021\nAuthor: Wyclife Agumba Oluoch\n', 'Package: mapsf ',
 #                            packageVersion('mapsf'), '\nPackage: afrilearndata ',
