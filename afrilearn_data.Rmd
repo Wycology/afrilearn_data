@@ -206,7 +206,7 @@ sample_data.head()
 
 The raster for the whole continent can be cropped and masked for a specific country extent. Here I do one for Kenya.
 
-There are some
+There are some errors
 
 ```{r kenya_land_cover}
 kenya_land_cover <- raster::crop(land_cover, africountries[africountries$name == 'Kenya',])
