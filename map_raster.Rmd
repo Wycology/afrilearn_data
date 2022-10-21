@@ -6,7 +6,7 @@ output: html_document
 ---
 
 ```{r message=FALSE}
-# Load ecessary libraries
+# Load tecessary libraries
 
 library(afrilearndata) # remotes::install_github("afrimapr/afrilearndata")
 library(mapsf)
