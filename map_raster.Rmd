@@ -1,0 +1,44 @@
+---
+title: "Mapping Raster layer using mapsf"
+author: "Wyclife Agumba Oluoch"
+date: "`r Sys.time()`"
+output: html_document
+---
+
+```{r message=FALSE}
+# ecessary libraries
+
+library(afrilearndata) # remotes::install_github("afrimapr/afrilearndata")
+library(mapsf)
+library(terra)
+library(raster)
+library(sf)
+```
+
+# About
+
+Here I show how raster layer can be mapped using `mf_raster()` function of `mapsf` package.
+
+```{r}
+kenya_sf <- africountries[africountries$name == 'Kenya',]
+kenya_sp <- as_Spatial(kenya_sf)
+
+land_cover <- rast(system.file("extdata","afrilandcover.grd", 
+                               package = "afrilearndata"))
+
+kenya_mask <- mask(crop(raster(land_cover), kenya_sp), kenya_sp)
+
+mf_init(kenya_sf, theme = "candy")
+mf_raster(rast(kenya_mask), add = TRUE)
+mf_map(kenya_sf, add = TRUE, col = 'transparent', lwd = 5, border = 'grey40')
+mf_scale(size = 0.0009)
+mf_layout(title = 'Kenyan Land Cover',
+          credits = paste0('Sources: Andy South, 2021\nAuthor: Wyclife Agumba Oluoch\n', 'Package: mapsf ',
+                           packageVersion('mapsf'), '\nPackage: afrilearndata ',
+                           packageVersion('afrilearndata')))
+mf_label(x = kenya_sf, var = "name", col = "blue", cex = 1.5, 
+         font = 250, bg = "white", r = 0.4)
+mf_inset_on(x = 'worldmap', pos = 'topright')
+mf_worldmap(kenya_sf, col = "red")
+mf_inset_off()
+```
