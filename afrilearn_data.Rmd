@@ -193,6 +193,7 @@ land_cover <- rast(system.file("extdata","afrilandcover.grd", package="afrilearn
 
   
 ```{python }
+# reticulate::repl_python()
 import pandas as pd
 sample_data = pd.read_csv("D:/comp.csv")
 sample_data.head()
@@ -203,16 +204,31 @@ sample_data.head()
 # mf_raster(land_cover, add = TRUE, bgalpha = 0.1)
 ```
 
-
 The raster for the whole continent can be cropped and masked for a specific country extent. Here I do one for Kenya.
 
-There are some errors in the code below that I will fix shortly.
-
 ```{r kenya_land_cover}
-kenya_land_cover <- raster::crop(land_cover, africountries[africountries$name == 'Kenya',])
-kenya_mask <- raster::mask(kenya_land_cover, vect(africountries[africountries$name == 'Kenya',]))
 kenya_sf <- africountries[africountries$name == 'Kenya',]
-mf_init(kenya_mask, expandBB = rep(0, 4), theme = 'dark')
+kenya_sp <- sf::as_Spatial(kenya_sf)
+
+kenya_mask <- raster::mask(raster::crop(raster::raster(land_cover), kenya_sp), kenya_sp)
+
+mf_init(kenya_sf, theme = "candy")
+mf_raster(rast(kenya_mask), add = TRUE)
+mf_map(kenya_sf, add = TRUE, col = 'transparent', lwd = 5, border = 'grey40',
+              graticule  = sf::st_crs(4326))
+mf_layout(title = 'Kenyan Land Cover',
+          credits = paste0('Sources: Andy South, 2021\nAuthor: Wyclife Agumba Oluoch\n', 'Package: mapsf ',
+                           packageVersion('mapsf'), '\nPackage: afrilearndata ',
+                           packageVersion('afrilearndata')))
+mf_label(x = kenya_sf, var = "name", col = "blue", cex = 1.5, 
+         font = 250, bg = "white", r = 0.4)
+mf_inset_on(x = 'worldmap', pos = 'topright')
+mf_worldmap(kenya_sf, col = "red")
+mf_inset_off()
+# kenya_land_cover <- raster::crop(land_cover, africountries[africountries$name == 'Kenya',])
+# kenya_mask <- raster::mask(kenya_land_cover, vect(africountries[africountries$name == 'Kenya',]))
+# kenya_sf <- africountries[africountries$name == 'Kenya',]
+# mf_init(kenya_mask, expandBB = rep(0, 4), theme = 'dark')
 # mf_raster(kenya_mask, add = TRUE, bgalpha = 0.1)
 # mf_layout(title = 'Kenyan Land Cover',
 #           credits = paste0('Sources: Andy South, 2021\nAuthor: Wyclife Agumba Oluoch\n', 'Package: mapsf ',
