@@ -204,7 +204,7 @@ sample_data.head()
 # mf_raster(land_cover, add = TRUE, bgalpha = 0.1)
 ```
 
-The raster for the whole continent can be cropped and masked for a specific country extent. Here I do one for Kenya.
+The raster for the whol continent can be cropped and masked for a specific country extent. Here I do one for Kenya.
 
 ```{r kenya_land_cover}
 kenya_sf <- africountries[africountries$name == 'Kenya',]
