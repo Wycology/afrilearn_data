@@ -17,7 +17,7 @@ library(sf)
 
 # About
 
-Here I de how raster layer can be mapped using `mf_raster()` function of `mapsf` package.
+Here I dem how raster layer can be mapped using `mf_raster()` function of `mapsf` package.
 
 ```{r}
 kenya_sf <- africountries[africountries$name == 'Kenya',]
