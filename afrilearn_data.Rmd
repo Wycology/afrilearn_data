@@ -76,7 +76,7 @@ mf_map(x = africountries, var = 'pop_est', type = 'prop', inches = 0.25,
 ## Population in choropleth protocol
 
 ```{r pop_est_choro}
-mf_init(africountries, expandBB = rep(0, 4), theme = 'dark')
+mf_init(africountries, expandBB = rep(0, 4), theme = 'candy')
 mf_layout(title = 'African countries population estimate choropleth',
           credits = paste0('Sources: Andy South, 2021\nAuthor: Wyclife Agumba Oluoch\n', 'Package: mapsf ',
                            packageVersion('mapsf'), '\nPackage: afrilearndata ',
