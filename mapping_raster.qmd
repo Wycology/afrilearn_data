@@ -14,9 +14,9 @@ Quarto enables you to weave together content and executable code into a finished
 When you click the **Render** button a document will be generated that includes both content and the output of embedded code. You can also just click _Ctrl+Shift+K_.
 
 ```{r}
-#| Load the necessary libraries
+# Load the necessary libraries
 
-library(afrilearndata) # remotes::install_github("afrimapr/afrilearndata")
+library(afrilearndata) 
 library(mapsf)
 library(raster)
 library(sf)
