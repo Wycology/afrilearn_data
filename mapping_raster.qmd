@@ -14,7 +14,7 @@ Quarto enables you to weave together content and executable code into a finished
 When you click the **Render** button a document will be generated that includes both content and the output of embedded code. You can also just click _Ctrl+Shift+K_.
 
 ```{r}
-# Load the necessary libraries
+#| Load the necessary libraries
 
 library(afrilearndata) # remotes::install_github("afrimapr/afrilearndata")
 library(mapsf)
@@ -38,7 +38,7 @@ for (i in pkgs) {
 
 On the other hand, to get the versions of R and Rstudio, run the following two commands in the Console:
 
-```{r eval=FALSE}
+```{r eval = FALSE}
 version$version.string
 rstudioapi::versionInfo()$long_version
 ```
@@ -48,24 +48,43 @@ You can add options to executable code like this
 
 ```{r}
 #| echo: false
-kenya_sf <- africountries[africountries$name == 'Kenya',]
+kenya_sf <- africountries[africountries$name == 'Kenya', ]
 kenya_sp <- as_Spatial(kenya_sf)
 
-land_cover <- rast(system.file("extdata","afrilandcover.grd", 
+land_cover <- rast(system.file("extdata", "afrilandcover.grd",
                                package = "afrilearndata"))
 
 kenya_mask <- mask(crop(raster(land_cover), kenya_sp), kenya_sp)
 
 mf_init(kenya_sf, theme = "candy")
 mf_raster(rast(kenya_mask), add = TRUE)
-mf_map(kenya_sf, add = TRUE, col = 'transparent', lwd = 5, border = 'grey40')
+mf_map(
+  kenya_sf,
+  add = TRUE,
+  col = 'transparent',
+  lwd = 5,
+  border = 'grey40'
+)
 mf_scale(size = 0.0009)
-mf_layout(title = 'Kenyan Land Cover',
-          credits = paste0('Sources: Andy South, 2021\nAuthor: Wyclife Agumba Oluoch\n', 'Package: mapsf ',
-                           packageVersion('mapsf'), '\nPackage: afrilearndata ',
-                           packageVersion('afrilearndata')))
-mf_label(x = kenya_sf, var = "name", col = "blue", cex = 1.5, 
-         font = 250, bg = "white", r = 0.4)
+mf_layout(
+  title = 'Kenyan Land Cover',
+  credits = paste0(
+    'Sources: Andy South, 2021\nAuthor: Wyclife Agumba Oluoch\n',
+    'Package: mapsf ',
+    packageVersion('mapsf'),
+    '\nPackage: afrilearndata ',
+    packageVersion('afrilearndata')
+  )
+)
+mf_label(
+  x = kenya_sf,
+  var = "name",
+  col = "blue",
+  cex = 1.5,
+  font = 250,
+  bg = "white",
+  r = 0.4
+)
 mf_inset_on(x = 'worldmap', pos = 'topright')
 mf_worldmap(kenya_sf, col = "red")
 mf_inset_off()
