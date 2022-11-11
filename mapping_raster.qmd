@@ -43,7 +43,6 @@ version$version.string
 rstudioapi::versionInfo()$long_version
 ```
 
-
 You can add options to executable code like this 
 
 ```{r}
