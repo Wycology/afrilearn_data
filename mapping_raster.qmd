@@ -11,17 +11,38 @@ Quarto enables you to weave together content and executable code into a finished
 
 ## Running Code
 
-When you click the **Render** button a document will be generated that includes both content and the output of embedded code. You can also just click Ctrl+Shift+K
+When you click the **Render** button a document will be generated that includes both content and the output of embedded code. You can also just click _Ctrl+Shift+K_.
 
 ```{r}
 # Load the necessary libraries
 
 library(afrilearndata) # remotes::install_github("afrimapr/afrilearndata")
 library(mapsf)
-library(terra)
 library(raster)
 library(sf)
+library(terra)
 ```
+
+## Versioning the libraries
+
+It is always a good practice to have versions of packages used in check in order to avoid any possible bugs when running the same code in future.
+
+```{r}
+pkgs <- c("afrilearndata", "mapsf", "raster", "sf", "terra")
+
+for (i in pkgs) {
+  print(paste0(i, " ", "==>:", " ", packageVersion(i)))
+}
+
+```
+
+On the other hand, to get the versions of R and Rstudio, run the following two commands in the Console:
+
+```{r eval=FALSE}
+version$version.string
+rstudioapi::versionInfo()$long_version
+```
+
 
 You can add options to executable code like this 
 
