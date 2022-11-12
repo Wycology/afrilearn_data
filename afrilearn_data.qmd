@@ -450,7 +450,7 @@ mf_inset_off()
 > Remember, this is a mere glimpse of the iceberg tip. The scale bars in the maps could be misleading as they are in degrees and not kms. In other words, I should have projected the data as follows:
 
 ```{r reprojected}
-#kenya_mask_reproj <- terra::project(kenya_mask, "EPSG:21096")
+# kenya_mask_reproj <- terra::project(kenya_mask, "EPSG:21096")
 # kenya_sf_reproj <- st_transform(kenya_sf, "EPSG:21096")
 # mf_init(kenya_mask_reproj, expandBB = rep(0, 4), theme = 'dark')
 # mf_raster(kenya_mask_reproj, add = TRUE, bgalpha = 0.1)
