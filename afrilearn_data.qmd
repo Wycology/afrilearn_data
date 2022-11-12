@@ -5,11 +5,12 @@ date: "`r Sys.Date()`"
 bibliography: 
   - bib/packages.bib
 nocite: '@*'
-output: 
-  html_document:
+format: 
+  html:
+    code-fold: true
     toc: true
-    toc_depth: 2
-    toc_float: true
+    toc-depth: 2
+    toc-title: "Table of contents"
 ---
 
 ```{r setup, include=FALSE}
@@ -42,7 +43,7 @@ knitr::write_bib(c(.packages(), packages), 'bib/packages.bib')
 
 `afrilearndata` library has useful data for learning Spatial Analysis in `R` within the African context. Having vector (with attribute data) and raster (with pixel values), the possibilities of analytic approaches are unlimited. I will barely **glimpse** tip of the iceberg.
 
-You can find the rmd file in my [GitHub](https://github.com/Wycology/afrilearn_data/blob/main/afrilearn_data.Rmd) account and more about the package [here](https://github.com/afrimapr/afrilearndata).
+You can find the rmd file in my [GitHub](https://github.com/Wycology/afrilearn_data/blob/main/afrilearn_data.qmd) account and more about the package [here](https://github.com/afrimapr/afrilearndata).
 
 ## Simple mapping of the countries
 
