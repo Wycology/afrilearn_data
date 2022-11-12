@@ -41,7 +41,7 @@ knitr::write_bib(c(.packages(), packages), 'bib/packages.bib')
 
 # Introduction
 
-`afrilearndata` library has useful data for learning Spatial Analysis in `R` within the African context. Having vector (with attribute data) and raster (with pixel values), the possibilities of analytic approaches are unlimited. I will barely **glimpse** tip of the iceberg.
+`afrilearndata` library has useful data for learning *Spatial Analysis in `R` within the African context. Having vector (with attribute data) and raster (with pixel values), the possibilities of analytic approaches are unlimited. I will barely **glimpse** tip of the iceberg.
 
 You can find the rmd file in my [GitHub](https://github.com/Wycology/afrilearn_data/blob/main/afrilearn_data.qmd) account and more about the package [here](https://github.com/afrimapr/afrilearndata).
 
