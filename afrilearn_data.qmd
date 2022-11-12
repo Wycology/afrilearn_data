@@ -465,6 +465,15 @@ mf_inset_off()
 # mf_inset_off()
 ```
 
+## PLaying around with python
+
+```{python}
+import geopandas as gpd # Working with geopandas 
+new_york = gpd.read_file(gpd.datasets.get_path("nybb"))
+new_york.plot()
+```
+
+
 # In this case, the scale of 200km is co
 
 # References
