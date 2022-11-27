@@ -9,7 +9,7 @@ theme: solar
 
 ## Publishing in Quarto
 
-Quar
+Qua
 
 ## Running Code
 
