@@ -3,6 +3,8 @@ title: "Mapping Raster layer using mapsf"
 author: "Wyclife Agumba Oluoch"
 date: "`r Sys.time()`"
 format: html
+self-contained: true
+theme: solar
 ---
 
 ## Publishing in Quarto
@@ -38,7 +40,8 @@ for (i in pkgs) {
 
 On the other hand, to get the versions of R and Rstudio, run the following two commands in the Console:
 
-```{r eval = FALSE}
+```{r}
+#| eval = FALSE
 version$version.string
 rstudioapi::versionInfo()$long_version
 ```
