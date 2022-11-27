@@ -7,8 +7,6 @@ self-contained: true
 theme: solar
 ---
 
-## Publishing in Q
-
 ## Running Code
 
 When you click the **Render** button a document will be generated that includes both content and the output of embedded code. You can also just click _Ctrl+Shift+K_.
