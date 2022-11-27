@@ -7,9 +7,7 @@ self-contained: true
 theme: solar
 ---
 
-## Publishing in Quarto
-
-
+## Publishing in Quar
 
 ## Running Code
 
