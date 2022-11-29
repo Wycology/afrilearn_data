@@ -5,6 +5,8 @@ date: "`r Sys.Date()`"
 bibliography: 
   - bib/packages.bib
 nocite: '@*'
+self-contained: true
+theme: solar
 format: 
   html:
     code-fold: true
@@ -271,7 +273,7 @@ mf_worldmap(afri_pop_2020_below_20, col = "red")
 mf_inset_off()
 ```
 
-Here is map of the country with maximum population density by 2020.
+Here is amap of the country with maximum population density by 2020.
 
 ```{r max_pop_202}
 afri_pop_2020_max <-
