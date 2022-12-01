@@ -12,7 +12,7 @@ theme: solar
 When you click the **Render** button a document will be generated that includes both content and the output of embedded code. You can also just click _Ctrl+Shift+K_.
 
 ```{r}
-# Loadin the necessary libraries
+# Loading the necessary libraries
 
 library(afrilearndata) 
 library(mapsf)
