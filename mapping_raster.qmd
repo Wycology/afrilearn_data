@@ -9,7 +9,7 @@ theme: solar
 
 ## Running Code
 
-When you click the **Render** button, a document will be generated that includes both content and the output of embedded code. ou can also just click _Ctrl+Shift+K_.
+When you click the **Render** button, a document will be generated that includes both content and the output of embedded code. Aou can also just click _Ctrl+Shift+K_.
 
 ```{r}
 # Loading the necessary libraries for the project
