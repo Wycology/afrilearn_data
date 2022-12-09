@@ -180,7 +180,7 @@ mf_inset_off()
 
 # Selective mapping
 
-Here I fi map only countries whose pop_2020 values are above 100.
+Here I fil map only countries whose pop_2020 values are above 100.
 
 ```{r pop_den_above_100}
 afri_pop_2020_100 <- afripop2020_extract %>% filter(pop_2020 > 100)
