@@ -47,7 +47,7 @@ knitr::write_bib(c(.packages(), packages), 'bib/packages.bib')
 
 You can find the rmd file in my [GitHub](https://github.com/Wycology/afrilearn_data/blob/main/afrilearn_data.qmd) account and more about the package [here](https://github.com/afrimapr/afrilearndata).
 
-## Simple mapping of tcountries
+## Simple mapping of countries
 
 ```{r countries}
 mf_init(africountries, expandBB = rep(0, 4), theme = 'iceberg')
