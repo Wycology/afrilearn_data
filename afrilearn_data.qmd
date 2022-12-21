@@ -41,7 +41,7 @@ lapply(packages, library, character.only = TRUE) |> invisible()
 knitr::write_bib(c(.packages(), packages), 'bib/packages.bib')
 ```
 
-# Introduction to the s
+# Introduction to the st
 
 `afrilearndata` library has useful data for learning _**Spatial Analysis**_ in `R` within the African context. Having vector (with attribute data) and raster (with pixel values), the possibilities of analytic approaches are unlimited. I will barely **glimpse** tip of the iceberg.
 
